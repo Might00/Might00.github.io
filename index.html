@@ -4,44 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>W Games Fr</title>
-</head>
-<body>
-    <iframe class="catninja" width="500px" height="500px" src="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fcat-ninja.xml" frameborder="0" loading="lazy"></iframe>
-    <iframe class="game-iframe" src="https://games-online.io/game/HappyWheels/" title="Play Happy Wheels" width="100%" height="480" frameborder="0" scrolling="no" allowfullscreen></iframe>
-    <button id="fsCatninja">Fullscreen Catninja</button>
-    <button id="fsGame">Fullscreen Happy Wheels</button>
-
-    <script>
-        function handleFullscreen(element) {
-            element.classList.toggle("fullscreened");
-        }
-
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Escape") {
-                console.log("Escape key pressed!");
-                document.querySelectorAll('.fullscreened').forEach(function (element) {
-                    element.classList.remove("fullscreened");
-                });
-            }
-        });
-
-        document.getElementById("fsCatninja").onclick = function () {
-            handleFullscreen(document.querySelector('.catninja'));
-        }
-
-        document.getElementById("fsGame").onclick = function () {
-            handleFullscreen(document.querySelector('.game-iframe'));
-        }
-    </script>
-
     <style>
-        .fullscreened {
-            width: 100%;
-            height: 100%;
-            position: absolute;
+        .modal {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1;
+        }
+
+        .modal iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
         }
     </style>
+</head>
+<body>
+    <div class="modal" id="fullscreenModal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <iframe id="fullscreenIframe" frameborder="0" scrolling="no" allowfullscreen></iframe>
+    </div>
+
+    <iframe class="catninja" width="500px" height="500px" src="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fcat-ninja.xml" frameborder="0" loading="lazy" onclick="openModal('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fcat-ninja.xml')"></iframe>
+    <button onclick="openModal('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fcat-ninja.xml')">Toggle Fullscreen</button>
+
+    <iframe class="game-iframe" width="500px" height="500px" src="https://games-online.io/game/HappyWheels/" title="Play Happy Wheels" frameborder="0" scrolling="no" allowfullscreen onclick="openModal('https://games-online.io/game/HappyWheels/')"></iframe>
+    <button onclick="openModal('https://games-online.io/game/HappyWheels/')">Toggle Fullscreen</button>
+
+    <iframe width="500px" height="500px" src="https://unblockeds-games.com/webgl/madalin2/index.html" frameborder="0" border="0" scrolling="no" class="" allowfullscreen=""></iframe>
+    <!-- No fullscreen button for Madalin Stunt Cars iframe -->
+
+    <script>
+        function openModal(src) {
+            const modal = document.getElementById('fullscreenModal');
+            const iframe = document.getElementById('fullscreenIframe');
+
+            iframe.src = src;
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            const iframe = document.getElementById('fullscreenIframe');
+
+            iframe.src = '';
+            modal.style.display = 'none';
+        }
+    </script>
 </body>
 </html>
